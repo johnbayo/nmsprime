@@ -417,5 +417,6 @@ class ConfigfileObserver
 	public function deleted($configfile)
 	{
 		// Actually it's only possible to delete configfiles that are not related to any cm/mta - so no CFs need to be built
+		// TODO: Delete Firmware!
 	}
 }

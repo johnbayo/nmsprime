@@ -17,6 +17,41 @@ class DashboardController extends BaseController
 	 */
 	public function index()
 	{
+		\Artisan::call('nms:importNetUser', ['filename' => storage_path('app/config/provbase/import/acs.php'), '--cluster' => 3]);
+
+		// $modems = \DB::connection('mysql-netuser')->table('Nutzer as m')
+		// 			->select('m.*', 'c.memo_cfg as cm_conf_default', 'm.memo_cfg as cm_conf_changed', 'c.Pfad as cf_name')
+		// 			->join('konfig as c', 'c.konfig_id', '=', 'm.konfig_id')
+		// 			// ->whereIn('m.konfig_id', [3415, 3416, 3419, 3420, 3421, 3427])
+		// 			->where('m.Mandantnr', '=', 3)
+		// 			->where('m.sec_typ', '=', 0)->get();
+
+		// foreach ($modems as $k => $m)
+		// {
+		// 	$mtas = \DB::connection('mysql-netuser')->table('Nutzer as m')
+		// 			->select('m.*', 'c.memo_cfg as mta_conf_default', 'm.memo_cfg as mta_conf_changed', 'c.Pfad as cf_name')
+		// 			->join('konfig as c', 'c.konfig_id', '=', 'm.konfig_id')
+		// 			->where('m.Kundennr', '=', $m->Kundennr)
+		// 			->where('m.sec_typ', '=', 2)
+		// 			->where('m.modem_lfd', '=', $m->Lfd)
+		// 			->get();
+
+			// if ($mtas && !in_array($m->konfig_id, [3438, 3485, 3490, 3304, 3421, 3427, 3306, 3489, 3480, 3305]))
+			// 	d($m->konfig_id, $k, $mtas[0]->mta_conf_default, $mtas[0]->mta_conf_changed);
+			// $datarates[] = \Modules\ProvBase\Console\importNetUserCommand::get_modem_data_rates($m->konfig_id > 0 ? $m->cm_conf_default : $m->cm_conf_changed);
+		// }
+
+		foreach ($datarates as $rates) {
+			$ds[] = $rates['ds'];
+			$us[] = $rates['us'];
+		}
+		$ds = array_unique($ds);
+		$us = array_unique($us);
+		asort($ds);
+		asort($us);
+
+d($ds, $us);
+
 		$title = 'Dashboard';
 		$netelements = $services = array();
 		$view = self::_get_view_permissions();

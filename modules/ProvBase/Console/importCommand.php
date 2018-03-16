@@ -382,7 +382,7 @@ class importCommand extends Command {
 		// Update or Create Entry
 		$c->save();
 
-		\Log::info("\nADD CONTRACT: $c->id, $c->firstname $c->lastname, $c->street, $c->zip $c->city [$old_contract->vertragsnummer]");
+		\Log::info("ADD CONTRACT: $c->id, $c->firstname $c->lastname, $c->street, $c->zip $c->city [$old_contract->vertragsnummer]");
 
 		return $c;
 	}
@@ -755,6 +755,9 @@ class importCommand extends Command {
 		$mta->type = 'sip';
 
 		$mta->save();
+
+		if (!$mta->configfile_id)
+			\Log::error('No Configfile could be assigned to MTA '.$mta->id." Old MtaID: $old_mta->id");
 
 		\Log::info ("ADD MTA: ".$mta->id.', '.$mta->mac.', CF-'.$mta->configfile_id);
 

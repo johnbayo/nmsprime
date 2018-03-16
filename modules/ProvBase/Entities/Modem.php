@@ -1109,7 +1109,7 @@ class ModemObserver
 		$modem->save();	 // forces to call the updating() and updated() method of the observer !
 		if (\PPModule::is_active ('ProvMon')) {
 			Log::info("Create cacti diagrams for modem: $modem->hostname");
-			\Artisan::call('nms:cacti', ['--cmts-id' => 0, '--modem-id' => $modem->id]);
+			// \Artisan::call('nms:cacti', ['--cmts-id' => 0, '--modem-id' => $modem->id]);
 		}
 	}
 
@@ -1149,7 +1149,7 @@ class ModemObserver
 
 		// Refresh MPS rules
 		// Note: does not perform a save() which could trigger observer.
-		if (\PPModule::is_active('HfcCustomer'))
+		if (\PPModule::is_active('HfcCustomer') && 0)
 		{
 			if (multi_array_key_exists(['x', 'y'], $diff))
 				$modem->netelement_id = \Modules\HfcCustomer\Entities\Mpr::refresh($modem->id);
